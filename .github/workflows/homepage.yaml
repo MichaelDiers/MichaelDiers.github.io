@@ -10,26 +10,7 @@ permissions:
   id-token: write
   pages: write
 jobs:
-  build-and-deploy:
-    env:
-      PAGES_DIRECTORY: homepage/build
-      WORKING_DIRECTORY: homepage
-    runs-on: ubuntu-latest
-    steps:
-    - name: checkout
-      uses: actions/checkout@v4
-    - name: install
-      run: npm install
-      working-directory: ${{env.WORKING_DIRECTORY}}
-    - name: build
-      run: npm run build
-      working-directory: ${{env.WORKING_DIRECTORY}}
-    - name: setup github pages
-      uses: actions/configure-pages@v4
-    - name: upload artifact
-      uses: actions/upload-pages-artifact@v3
+  react-app-to-github-pages:
+    uses: MichaelDiers/github-workflows/.github/workflows/react-app-to-github-pages.yaml@main
       with:
-        path: ${{ env.PAGES_DIRECTORY }}
-    - name: deploy to github pages
-      uses: actions/deploy-pages@v4
-
+        working-directory: homepage
