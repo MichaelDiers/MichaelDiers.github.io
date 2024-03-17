@@ -12,5 +12,5 @@ permissions:
 jobs:
   react-app-to-github-pages:
     uses: MichaelDiers/github-workflows/.github/workflows/react-app-to-github-pages.yaml@main
-      with:
-        working-directory: homepage
+    with:
+      working-directory: homepage
