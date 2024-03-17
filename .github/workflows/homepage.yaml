@@ -1,0 +1,21 @@
+name: build and deploy homepage
+on:
+  push:
+    paths:
+      - homepage/**
+      - .github/workflows/homepage.yaml
+  workflow_dispatch:
+jobs:
+  build-and-deploy:  
+    env:
+      WORKING_DIRECTORY: homepage
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v4
+    - name: install
+      run: npm install
+      working-directory: ${{env.WORKING_DIRECTORY}}
+    - name: build
+      run: npm run build
+      working-directory: ${{env.WORKING_DIRECTORY}}
