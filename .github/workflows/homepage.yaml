@@ -5,9 +5,14 @@ on:
       - homepage/**
       - .github/workflows/homepage.yaml
   workflow_dispatch:
+permissions:
+  contents: read
+  id-token: write
+  pages: write
 jobs:
-  build-and-deploy:  
+  build-and-deploy:
     env:
+      PAGES_DIRECTORY: homepage/build
       WORKING_DIRECTORY: homepage
     runs-on: ubuntu-latest
     steps:
@@ -19,3 +24,12 @@ jobs:
     - name: build
       run: npm run build
       working-directory: ${{env.WORKING_DIRECTORY}}
+    - name: setup github pages
+      uses: actions/configure-pages@v4
+    - name: upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: ${{ env.PAGES_DIRECTORY }}
+    - name: deploy to github pages
+      uses: actions/deploy-pages@v4
+
